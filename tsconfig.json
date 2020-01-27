@@ -1,0 +1,15 @@
+{
+    "include": [
+        "src/**/*",
+    ],
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "target": "ES5",
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true
+    }
+}
