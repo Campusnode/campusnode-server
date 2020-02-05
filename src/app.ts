@@ -7,6 +7,7 @@ import * as errorHandler from "errorhandler";
 import * as methodOverride from "method-override";
 import { Sequelize, getModels } from "sequelize-typescript";
 import { Dialect } from "sequelize";
+import students from "./routes/students";
 // import { Sequelize, Dialect } from "";
 
 /**
@@ -47,11 +48,11 @@ export class Server {
         //configure application
         this.config();
 
-        //add routes
-        this.routes();
-
         // start database
         this.database();
+
+        //add routes
+        this.routes();
 
     }
 
@@ -101,12 +102,17 @@ export class Server {
 
         this.db = new Sequelize({
             database: process.env.DB_NAME,
+            host: process.env.DB_HOST,
+            port: Number(process.env.DB_PORT),
             dialect: process.env.DB_DIALECT as Dialect,
             username: process.env.DB_USER,
             password: process.env.DB_PASSWORD,
-            models: [__dirname + '/models']
+            models: [__dirname + '/models'],
+            
         });
 
+        //temporary 
+        this.db.models['Student'].sync({force: true});
     }
 
     /**
@@ -119,10 +125,14 @@ export class Server {
 
         let router = express.Router();
 
+        new students(router, this.db);
+
         // middleware
 
         // routes
         
         //empty for now
+
+        this.app.use(router);
     }
 }

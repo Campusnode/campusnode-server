@@ -1,9 +1,22 @@
-import * as express from "express";
-var router = express.Router();
+import { CrudRoute } from "../base/routes/CrudRoute";
+import { BaseRoute } from "../base/routes/BaseRoute";
+import { NextFunction, Request, Response, Router } from "express";
+import Student from "../models/Student";
+import { Model } from "sequelize/types";
+import { Sequelize } from "sequelize-typescript";
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
-});
 
-module.exports = router;
+export default class students extends CrudRoute {
+
+  constructor(router: Router, db: Sequelize) {
+    super(
+      router,
+      db.model['Student'],
+      'students'
+    );
+    this.router = router;
+    
+    this.title = "Students";
+  }
+
+}
