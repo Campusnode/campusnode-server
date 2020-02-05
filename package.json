@@ -18,12 +18,14 @@
     "gulp-typescript": "^6.0.0-alpha.1",
     "http-errors": "~1.6.3",
     "method-override": "^3.0.0",
+    "mocha": "^7.0.1",
     "morgan": "~1.9.1",
     "pg": "^7.17.1",
     "pg-hstore": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.3",
     "sequelize-typescript": "^1.1.0",
+    "supertest": "^4.0.2",
     "typescript": "^3.7.5"
   },
   "devDependencies": {
