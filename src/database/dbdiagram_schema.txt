@@ -1,0 +1,132 @@
+//-- paste the following into dbdiagram.io to get a database diagram
+
+//-- Base Tables
+
+Table entities {
+  id            bigint    [pk, increment]
+  first_name    varchar   [not null]
+  middle_name   varchar   [not null]
+  last_name     varchar   [not null]
+  phone         varchar   [not null]
+  email         varchar   [not null]
+
+  created_by    bigint    [not null, ref: > users.id]
+  created_at    timestamp [not null, default: `now()`]
+  updated_by    bigint    [ref: > users.id]
+  updated_at    timestamp
+  deleted_by    bigint    [ref: > users.id]
+  deleted_at    timestamp
+}
+
+Table users {
+  id            bigint    [pk, increment]
+  username      varchar   [not null, unique]
+  password      varchar   [not null]
+  email         varchar   [not null, unique]
+
+  created_by    bigint    [not null]
+  created_at    timestamp [not null, default: `now()`]
+  updated_by    bigint    [ref: > users.id]
+  updated_at    timestamp
+  deleted_by    bigint    [ref: > users.id]
+  deleted_at    timestamp
+}
+
+Table addresses {
+  id            bigint    [pk, increment]
+  contact_name  varchar   [not null]
+  estate_name   varchar   [not null]
+  street        varchar   [not null]
+  district      varchar   [not null]
+  city          varchar   [not null]
+  state         varchar   [not null]
+  country       varchar   [not null]
+  zip           varchar   [not null]
+  email         varchar   [not null]
+  phone         varchar   [not null]
+
+  created_by    bigint    [not null, ref: > users.id]
+  created_at    timestamp [not null, default: `now()`]
+  updated_by    bigint    [ref: > users.id]
+  updated_at    timestamp
+  deleted_by    bigint    [ref: > users.id]
+  deleted_at    timestamp
+}
+
+Table staff_type {
+  id            bigint    [pk, increment]
+  type          varchar   [not null]
+
+  created_by    bigint    [not null, ref: > users.id]
+  created_at    timestamp [not null, default: `now()`]
+  updated_by    bigint    [ref: > users.id]
+  updated_at    timestamp
+  deleted_by    bigint    [ref: > users.id]
+  deleted_at    timestamp
+}
+
+// Entity Tables
+
+Table students {
+  id            bigint    [pk, increment]
+  entity_id     bigint    [unique, ref: > entities.id]
+  
+  primary_address_id    bigint [ref: > addresses.id]
+  emergency_address_id  bigint [ref: > addresses.id]
+
+  user_id       bigint    [unique, ref: > users.id]
+
+  created_by    bigint    [not null, ref: > users.id]
+  created_at    timestamp [not null, default: `now()`]
+  updated_by    bigint    [ref: > users.id]
+  updated_at    timestamp
+  deleted_by    bigint    [ref: > users.id]
+  deleted_at    timestamp
+}
+
+Table staff {
+  id            bigint    [pk, increment]
+  entity_id     bigint    [unique, ref: > entities.id]
+  
+  primary_address_id    bigint [ref: > addresses.id]
+  emergency_address_id  bigint [ref: > addresses.id]
+
+  user_id       bigint    [unique, ref: > users.id]
+
+  created_by    bigint    [not null, ref: > users.id]
+  created_at    timestamp [not null, default: `now()`]
+  updated_by    bigint    [ref: > users.id]
+  updated_at    timestamp
+  deleted_by    bigint    [ref: > users.id]
+  deleted_at    timestamp
+}
+
+
+// A University consists of many Colleges
+Table colleges {
+  id            bigint    [pk, increment]
+
+  name          varchar   [not null]
+  address_id    bigint    [ref: > addresses.id]
+
+  created_by    bigint    [not null, ref: > users.id]
+  created_at    timestamp [not null, default: `now()`]
+  updated_by    bigint    [ref: > users.id]
+  updated_at    timestamp
+  deleted_by    bigint    [ref: > users.id]
+  deleted_at    timestamp
+}
+
+
+// util
+
+// Table copy_paste_me_to_make_a_new_table {
+//   id            bigint    [pk, increment]
+
+//   created_by    bigint    [not null, ref: > users.id]
+//   created_at    timestamp [not null, default: `now()`]
+//   updated_by    bigint    [ref: > users.id]
+//   updated_at    timestamp
+//   deleted_by    bigint    [ref: > users.id]
+//   deleted_at    timestamp
+// }
