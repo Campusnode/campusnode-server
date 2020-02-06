@@ -5,9 +5,11 @@ import * as logger from "morgan";
 import * as path from "path";
 import * as errorHandler from "errorhandler";
 import * as methodOverride from "method-override";
+
 import { Sequelize, getModels } from "sequelize-typescript";
 import { Dialect } from "sequelize";
 import students from "./routes/students";
+
 // import { Sequelize, Dialect } from "";
 
 /**

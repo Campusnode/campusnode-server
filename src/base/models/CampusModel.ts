@@ -1,7 +1,8 @@
-import { AllowNull, Model, Column, DataType, Table, DeletedAt, UpdatedAt, CreatedAt, AutoIncrement } from "sequelize-typescript";
+import { AllowNull, Model, Column, DataType, Table, DeletedAt, UpdatedAt, CreatedAt, AutoIncrement, PrimaryKey } from "sequelize-typescript";
 
-export declare abstract class CampusModel<T = any, T2 = any> extends Model<T, T2> {
-    @AutoIncrement @Column(DataType.BIGINT)
+@Table
+export default class CampusModel<T = any, T2 = any> extends Model<T, T2> {
+    @AutoIncrement @PrimaryKey @Column(DataType.BIGINT)
     id: number;
 
     @AllowNull(false) @Column(DataType.BIGINT)
