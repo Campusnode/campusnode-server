@@ -1,5 +1,5 @@
-import { AllowNull, Column, IsEmail, Table, Unique } from 'sequelize-typescript';
-import { CampusModel } from '../base/models/CampusModel';
+import { AllowNull, Column, IsEmail, Table, Unique, Model } from 'sequelize-typescript';
+import CampusModel from '../base/models/CampusModel';
 
 
 @Table({
