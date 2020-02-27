@@ -1,6 +1,9 @@
 import { AllowNull, Model, Column, DataType, Table, DeletedAt, UpdatedAt, CreatedAt, AutoIncrement, PrimaryKey } from "sequelize-typescript";
 
-@Table
+@Table({
+    underscored: true,
+    timestamps: true
+})
 export default class CampusModel<T = any, T2 = any> extends Model<T, T2> {
     @AutoIncrement @PrimaryKey @Column(DataType.BIGINT)
     id: number;
@@ -17,10 +20,14 @@ export default class CampusModel<T = any, T2 = any> extends Model<T, T2> {
     @UpdatedAt
     updated_at: Date;
 
-    @AllowNull(false) @Column(DataType.BIGINT)
+    @Column(DataType.BIGINT)
     deleted_by: number;
 
     @DeletedAt
     deleted_at: Date;
+
+    public static getModel(): Model {
+        return new this as Model;
+    }
 
 }

@@ -6,12 +6,13 @@
         "outDir": "./dist",
         "noImplicitAny": false,
         "skipLibCheck": true,
-        "target": "ES5",
+        "target": "ES6",
+        "module": "commonjs",
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "sourceMap": false
+        "sourceMap": true
     }
 }

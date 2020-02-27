@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router, RequestHandler } from "express";
 
 /**
  * Constructor
@@ -8,7 +8,7 @@ import { NextFunction, Request, Response, Router } from "express";
 export class BaseRoute {
 
   protected title: string;
-  protected router: Router;
+  public router: Router;
 
 
   /**
@@ -17,21 +17,17 @@ export class BaseRoute {
    * @class BaseRoute
    * @constructor
    */
-  constructor(router: Router, title?: string) {
+  constructor(router: Router) {
     //initialize variables
     this.router = router;
   }
 
-  public get(route: string, cb: Function) {
-    this.router.get(route, (req: Request, res: Response, next: NextFunction) => {
-      return cb(req, res, next);
-    });
+  public get(route: string, cb: RequestHandler) {
+    this.router.get(route, cb);
   }
 
-  public post(route: string, cb: Function) {
-    this.router.post(route, (req: Request, res: Response, next: NextFunction) => {
-      return cb(req, res, next);
-    });
+  public post(route: string, cb: any) {
+    this.router.post(route, cb);
   }
 
   public patch(route: string, cb: Function) {
@@ -50,6 +46,10 @@ export class BaseRoute {
     this.router.delete(route, (req: Request, res: Response, next: NextFunction) => {
       return cb(req, res, next);
     });
+  }
+
+  public getRouter(): Router {
+    return this.router;
   }
 
 }

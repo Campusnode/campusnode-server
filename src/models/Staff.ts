@@ -1,19 +1,17 @@
-import {Table, Column, PrimaryKey, AutoIncrement, AllowNull, DataType, Model} from 'sequelize-typescript';
-import CampusModel  from '../base/models/CampusModel';
+import { Table, Column, AllowNull, DataType, Unique } from 'sequelize-typescript';
+import CampusModel from '../base/models/CampusModel';
 
-@Table({
-    underscored: true,
-    timestamps: true
-})
-export default class Staff extends CampusModel<Staff> {
+@Table
+export class Staff extends CampusModel<Staff> {
 
-    @AllowNull(false) @Column
-    first_name: string;
+    @AllowNull(false) @Unique @Column(DataType.BIGINT)
+    entity_id: number;
 
-    @Column
-    middle_name: string;
+    @AllowNull(false) @Unique @Column(DataType.BIGINT)
+    user_id: number;
 
-    @AllowNull(false) @Column
-    last_name: string;
+    @Column(DataType.BIGINT)
+    type: number;
+
 
 }

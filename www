@@ -4,8 +4,7 @@
  * Module dependencies.
  */
 require = require('esm')(module);
-var server = require('./dist/app');
-var debug = require('debug')('campusnode:server');
+var server = require('./dist/app/index');
 var http = require('http');
 
 /**
@@ -14,7 +13,7 @@ var http = require('http');
 
 var port = normalizePort(process.env.SERVER_PORT || '9229');
 
-var app = server.Server.bootstrap().app;
+var app = server.app;
 
 app.set('port', port);
 
@@ -89,7 +88,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Express: Listening on ' + bind);
   console.log('Express: Listening on ' + bind);
 
 }

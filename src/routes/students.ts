@@ -1,22 +1,24 @@
-import { CrudRoute } from "../base/routes/CrudRoute";
+import { Router, Request, Response } from "express";
 import { BaseRoute } from "../base/routes/BaseRoute";
-import { NextFunction, Request, Response, Router } from "express";
-import Student from "../models/Student";
-import { Model } from "sequelize/types";
-import { Sequelize } from "sequelize-typescript";
+import { Student } from "../models";
 
+export class students extends BaseRoute{
 
-export default class students extends CrudRoute {
+  constructor(router: Router) {
+    super(router);
 
-  constructor(router: Router, db: Sequelize) {
-    super(
-      router,
-      db.model['Student'],
-      'students'
-    );
-    this.router = router;
-    
-    this.title = "Students";
+    let prefix: string = "/students"
+    this.get(prefix, (req: Request, res: Response) => { this.list(req, res); });
+  }
+
+  public async list(req: Request, res: Response) {
+    const students = await Student.findAll();
+    return res.json(students);
+  }
+
+  public async display(req: Request, res: Response) {
+    const student = await Student.findByPk(req.params.id);
+    return res.json(student);
   }
 
 }

@@ -1,39 +1,41 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { BaseRoute } from "./BaseRoute";
 import { Model } from "sequelize-typescript";
+import CampusModel from "../models/CampusModel";
 
 /**
  * Constructor
  *
  * @class BaseRoute
  */
-export abstract class CrudRoute extends BaseRoute {
-    private model: Model;
-    private prefix: string;
+export class CrudRoute extends BaseRoute {
+    private model: any;
 
-    constructor(router: Router, model: Model, prefix: string) {
+    constructor(router: Router, model: any, prefix: string) {
         super(router);
         this.model = model;
-        this.prefix = prefix + '/';
+        prefix = '/' + prefix + '/';
 
-        this.get(prefix, this.list);
-        this.post(prefix, this.store);
+        this.get(prefix, (req, res) => { this.list(req, res) } );
+        this.post(prefix, (req, res) =>{ this.store(req, res) } );
     }
 
-    public list(req: Request, res: Response): Response {
-        return res.json(this.model.toJSON())
+    public async list(this: CrudRoute, req: Request, res: Response): Promise<Object> {
+        let resource = await this.model.findAll();
+        resource = await this.beforeIndexResponse(resource);
+        return res.json(resource);
     }
 
-    public create(req: Request, res: Response): Object {
-        return {};
+    public async create(req: Request, res: Response): Promise<Response> {
+        return res.json();
     }
 
-    public store(req: Request, res: Response): void {
-        return res.redirect('/show');
+    public async store(req: Request, res: Response): Promise<Response> {
+        return res.json();
     }
 
-    public display(req: Request, res: Response): Object {
-        return {};
+    public async display(req: Request, res: Response): Promise<Response> {
+        return res.json();
     }
 
     public edit(req: Request, res: Response): Object {
@@ -46,6 +48,10 @@ export abstract class CrudRoute extends BaseRoute {
 
     public remove(req: Request, res: Response): Object {
         return {};
+    }
+
+    public async beforeIndexResponse(resource) {
+        return resource;
     }
 
 }
